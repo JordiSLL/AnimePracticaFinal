@@ -1,0 +1,19 @@
+<template>
+  <div class="about">
+    <h1>Welcome to ANIME</h1>
+    <h2>F2P Lets gooo!</h2>
+  </div>
+</template>
+
+
+<style>
+@media (min-width: 1024px) {
+  .about {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+  }
+}
+</style>
