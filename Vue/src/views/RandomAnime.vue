@@ -104,13 +104,14 @@ methods:{
               .then( data => {
                 console.log(data)
                 let random = Math.floor(Math.random() * data.pagination.last_visible_page)+1;
-                //console.log(data.pagination.last_visible_page)
-                //console.log(random)
+                console.log(data.pagination.last_visible_page)
+                console.log(random)
                 randomAnimeService.getAnime(this.selectedtype, this.selectedrating, this.selectedstatus, this.selectedgenres,this.selectedMax,this.selectedMin,random)
                 .then( info => info.data )
               .then( data => {
                 console.log(data)
-                let random = Math.floor(Math.random() * data.pagination.items.total);
+                let random = Math.floor(Math.random() * data.pagination.items.count);
+                console.log(random)
                 this.imageSrc = data.data[random].images.jpg.large_image_url;
                 this.animeTitle = data.data[random].title;
                 console.log(data.data[random].images.jpg.large_image_url)})
