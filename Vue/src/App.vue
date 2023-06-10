@@ -5,7 +5,7 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="img/logo.svg" width="300" />
+    <img alt="Vue logo" class="logo" src="/src/img/logo.svg" width="300" />
 
     <div class="wrapper">
 

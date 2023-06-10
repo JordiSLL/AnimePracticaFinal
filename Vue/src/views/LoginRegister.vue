@@ -1,7 +1,7 @@
 
 <template>
     <div class="container">
-      <img class="logo" src="img/logo.svg" alt="anime random logo">
+      <img class="logo" src="/src/img/logo.svg" alt="anime random logo">
       <form id="loginForm" class="form" :style="{ display: loginFormDisplay }">
         <h2>Iniciar sesión</h2>
         <input class="input" type="email" placeholder="Correo electrónico" required>
@@ -16,7 +16,7 @@
         <input class="input" type="date" placeholder="Fecha de nacimiento" required>
         <input class="input" type="password" placeholder="Contraseña" required>
         <label for="imageUpload" class="file-upload">
-          <img src="/img/84459.png" alt="Subir archivo" class="iconUpload">
+          <img src="/src/img/84459.png" alt="Subir archivo" class="iconUpload">
           <span>{{ estadoImagen }}</span>
         </label>
         <input type="file" id="imageUpload" style="display: none" @change="ImageUpload">
