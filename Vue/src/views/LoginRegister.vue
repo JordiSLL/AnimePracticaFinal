@@ -1,25 +1,26 @@
 
 <template>
     <div class="container">
-      <img class="logo" src="/src/img/logo.svg" alt="anime random logo">
-      <form id="loginForm" class="form" :style="{ display: loginFormDisplay }">
+      <img class="logo" src="/img/logo.svg" alt="anime random logo">
+      <form id="loginForm" @submit.prevent="loginUser" class="form" :style="{ display: loginFormDisplay }">
         <h2>Iniciar sesión</h2>
-        <input class="input" type="email" placeholder="Correo electrónico" required>
-        <input class="input" type="password" placeholder="Contraseña" required>
+        <input class="input" v-model="email" type="email" placeholder="Correo electrónico" required>
+        <input class="input" v-model="password" type="password" placeholder="Contraseña" required>
         <button type="submit">Iniciar sesión</button>
         <p>¿No tienes una cuenta? <a href="#" @click="toggleForm">Registrarse</a></p>
       </form>
-      <form id="registerForm" class="form" :style="{ display: registerFormDisplay }">
+      <form id="registerForm" @submit.prevent="registerUser" class="form" :style="{ display: registerFormDisplay }">
         <h2>Registrarse</h2>
-        <input class="input" type="text" placeholder="Nombre" required>
-        <input class="input" type="email" placeholder="Correo electrónico" required>
-        <input class="input" type="date" placeholder="Fecha de nacimiento" required>
-        <input class="input" type="password" placeholder="Contraseña" required>
+        <input class="input" v-model="name" type="text" placeholder="Nombre" required>
+        <input class="input" v-model="email" type="email" placeholder="Correo electrónico" required>
+        <input class="input" v-model="date" type="date" placeholder="Fecha de nacimiento" required>
+        <input class="input" v-model="password" type="password" placeholder="Contraseña" required>
         <label for="imageUpload" class="file-upload">
-          <img src="/src/img/84459.png" alt="Subir archivo" class="iconUpload">
+          <img src="/img/84459.png" alt="Subir archivo" class="iconUpload">
           <span>{{ estadoImagen }}</span>
         </label>
-        <input type="file" id="imageUpload" style="display: none" @change="ImageUpload">
+        <input type="file"  id="imageUpload" style="display: none" @change="ImageUpload">
+        <p v-if="msg">{{ msg }}</p>
         <button type="submit">Registrarse</button>
         <p>¿Ya tienes una cuenta? <a href="#" @click="toggleForm">Iniciar sesión</a></p>
       </form>
@@ -27,6 +28,8 @@
   </template>
 
 <script>
+import registerLoginService from '@/services/registerLoginService.js';
+import router from '/src/router'
 export default {
     mounted(){
     document.querySelector('header').style.display = 'none';
@@ -36,7 +39,12 @@ export default {
     return {
       loginFormDisplay: 'flex',
       registerFormDisplay: 'none',
-      estadoImagen: 'Sin imagen seleccionada'
+      estadoImagen: 'Sin imagen seleccionada',
+      name: '',
+      email: '',
+      date: '',
+      password: '',
+      msg: ''
     };
   },
   methods: {
@@ -51,6 +59,44 @@ export default {
       } else {
         this.estadoImagen = 'Sin imagen seleccionada';
       }
+    },
+    registerUser(){
+      console.log("RegisterUser")
+      const userData = {
+      name: this.name,
+      email: this.email,
+      date: this.date,
+      password: this.password
+    };
+      console.log(userData);
+      registerLoginService.registerUserApi(userData).then(response => {  
+      console.log('Usuario registrado:', response.data);
+      localStorage.setItem('token',response.data.token);
+      router.push('/home');
+    })
+    .catch(error => {
+      this.msg = "El correo ya ha sido utilizado";
+      console.log(this.msg );
+      console.error('Error al registrar el usuario:', error);
+    });
+    },
+    loginUser(){
+      console.log("loginUser");
+      console.log(this.email,this.password);
+      const userData = {
+      email: this.email,
+      password: this.password
+    };
+      registerLoginService.loginUserApi(userData).then(response => {
+      console.log('Login correcto:', response.data);
+      localStorage.setItem('token',response.data.token);
+      router.push('/home');
+    })
+    .catch(error => {
+      this.msg = "El correo y la contraseña no coinciden";
+      console.log(this.msg );
+      console.error('Error en el login del usuario:', error);
+    });
     }
   }
 };

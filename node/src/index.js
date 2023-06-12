@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 const config = require("./config/config");
 const UserRouter = require('./routes/user.route');
 const UrlRouter = require('./routes/url.route');
-
+const cors = require('cors');
 // Create the express app
 const app = express();
 const port = config.PORT;
@@ -28,7 +28,7 @@ const options = {
 };
 const specs = swaggerJsdoc(options);
 
-
+app.use(cors());
 // Use body parser middleware
 app.use(bodyParser.json());
 app.use(express.static('public'));
