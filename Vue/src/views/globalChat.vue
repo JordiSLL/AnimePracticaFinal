@@ -1,19 +1,41 @@
 <template>
-  <div class="about">
-    <h1>Welcome to ANIME</h1>
-    <h2>F2P Lets gooo!</h2>
+  <div>
+    <ul>
+      <li v-for="message in messages" :key="message.id">{{ message }}</li>
+    </ul>
+    <input v-model="newMessage" type="text" placeholder="Escribe un mensaje...">
+    <button @click="sendMessage">Enviar</button>
   </div>
 </template>
 
+<script>
+import io from 'socket.io-client';
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-  }
-}
-</style>
+export default {
+  data() {
+    return {
+      messages: [],
+      newMessage: '',
+    };
+  },
+  mounted() {
+    // Establecer la conexión del socket
+    this.socket = io('http://localhost:4000');
+
+    // Escuchar eventos de mensajes entrantes
+    this.socket.on('chat message', (message) => {
+      this.messages.push(message);
+    });
+  },
+  methods: {
+    sendMessage() {
+      // Enviar el mensaje al servidor de sockets
+      this.socket.emit('chat message', this.newMessage);
+
+      // Limpiar el campo de entrada de mensajes
+      this.newMessage = '';
+    },
+  },
+};
+
+</script>

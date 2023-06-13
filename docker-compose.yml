@@ -13,6 +13,7 @@ services:
         NODE_ENV: development
     ports:
       - "3000:3000"
+      - "4000:4000"
     volumes:
       - ./node/src:/app
     depends_on:
