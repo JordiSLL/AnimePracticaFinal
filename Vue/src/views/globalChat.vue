@@ -2,7 +2,7 @@
   <div class="chat-container">
     <ul class="message-list">
       <li v-for="message in messages" :key="message.id" :class="{'my-message': message.isMine}">
-        <span class="message-sender">{{ message.sender }}:</span>
+        <span class="message-sender">{{ message.senderUserName }}:</span>
         <span class="message-content">{{ message.content }}</span>
       </li>
     </ul>
@@ -17,24 +17,24 @@ import io from 'socket.io-client';
 
 export default {
   data() {
+    const userinfo = JSON.parse(sessionStorage.getItem('usuario'));
     return {
       messages: [],
       newMessage: '',
-      email: sessionStorage.getItem('email'),
-      userName: sessionStorage.getItem('name')
+      email: userinfo.user.email,
+      userName: userinfo.user.name
     };
   },
   mounted() {
     // Establecer la conexión del socket
     this.socket = io('http://localhost:4000');
-
     // Escuchar eventos de mensajes entrantes
     this.socket.on('chat message', (message) => {
-      const isMine = message.senderEmail === email;
+      const isMine = message.senderEmail === this.email;
       this.messages.push({
         id: Date.now(),
-        senderUserName: message.sender,
-        senderEmail: this.email,
+        senderUserName: message.senderUserName,
+        senderEmail: message.senderEmail,
         content: message.content,
         isMine: isMine,
       });

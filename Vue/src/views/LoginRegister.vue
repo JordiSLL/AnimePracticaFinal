@@ -73,9 +73,7 @@ export default {
       console.log(userData);
       registerLoginService.registerUserApi(userData).then(response => {  
       console.log('Usuario registrado:', response.data);
-      localStorage.setItem('token',response.data.token);
-      sessionStorage.setItem('email', response.data.user.email);
-      sessionStorage.setItem('name', response.data.user.name);
+      sessionStorage.setItem('usuario', JSON.stringify(response.data));
       router.push('/home');
     })
     .catch(error => {
@@ -93,9 +91,7 @@ export default {
     };
       registerLoginService.loginUserApi(userData).then(response => {
       console.log('Login correcto:', response.data);
-      localStorage.setItem('token',response.data.token);
-      sessionStorage.setItem('email', response.data.user.email);
-      sessionStorage.setItem('name', response.data.user.name);
+      sessionStorage.setItem('usuario', JSON.stringify(response.data));
       router.push('/home');
     })
     .catch(error => {

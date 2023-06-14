@@ -10,7 +10,7 @@ const animeRandom = axios.create({
 
   export default {
     getAnimeDefault() {
-      return animeRandom.get('/anime?',{
+      return animeRandom.get('/anime?sfw',{
       params: {
         min_score: 7,
         max_score: 10,
@@ -46,9 +46,8 @@ const animeRandom = axios.create({
       if (randomPage !== null && randomPage > 0) {
         params.page = randomPage;
       }
-      params.sfw = false;
       //console.log('/anime', { params });
-      return animeRandom.get('/anime', { params });
+      return animeRandom.get('/anime?sfw', { params });
     }
   }
     
