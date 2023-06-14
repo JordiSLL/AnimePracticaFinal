@@ -6,6 +6,7 @@
         <h2>Iniciar sesión</h2>
         <input class="input" v-model="email" type="email" placeholder="Correo electrónico" required>
         <input class="input" v-model="password" type="password" placeholder="Contraseña" required>
+        <p class="errormsg" v-if="msg">{{ msg }}</p>
         <button type="submit">Iniciar sesión</button>
         <p>¿No tienes una cuenta? <a href="#" @click="toggleForm">Registrarse</a></p>
       </form>
@@ -20,7 +21,7 @@
           <span>{{ estadoImagen }}</span>
         </label>
         <input type="file"  id="imageUpload" style="display: none" @change="ImageUpload">
-        <p v-if="msg">{{ msg }}</p>
+        <p class="errormsg" v-if="msg">{{ msg }}</p>
         <button type="submit">Registrarse</button>
         <p>¿Ya tienes una cuenta? <a href="#" @click="toggleForm">Iniciar sesión</a></p>
       </form>
@@ -51,6 +52,7 @@ export default {
     toggleForm() {
       this.loginFormDisplay = this.loginFormDisplay === 'none' ? 'flex' : 'none';
       this.registerFormDisplay = this.registerFormDisplay === 'none' ? 'flex' : 'none';
+      this.msg = '';
     },
     ImageUpload(event) {
       const imagenInput = event.target;
@@ -72,6 +74,8 @@ export default {
       registerLoginService.registerUserApi(userData).then(response => {  
       console.log('Usuario registrado:', response.data);
       localStorage.setItem('token',response.data.token);
+      sessionStorage.setItem('email', response.data.user.email);
+      sessionStorage.setItem('name', response.data.user.name);
       router.push('/home');
     })
     .catch(error => {
@@ -90,6 +94,8 @@ export default {
       registerLoginService.loginUserApi(userData).then(response => {
       console.log('Login correcto:', response.data);
       localStorage.setItem('token',response.data.token);
+      sessionStorage.setItem('email', response.data.user.email);
+      sessionStorage.setItem('name', response.data.user.name);
       router.push('/home');
     })
     .catch(error => {
@@ -212,6 +218,9 @@ body {
   
   a:hover {
     text-decoration: underline;
+  }
+  .errormsg{
+    color: rgb(223, 67, 67);
   }
  
   @media only screen and (max-width: 600px) {
