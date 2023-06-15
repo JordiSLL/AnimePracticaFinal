@@ -1,6 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
-import PokesView from '../views/PokesView.vue'
 import SingleView from '../views/SingleView.vue'
 import RandomAnime from '../views/RandomAnime.vue'
 import OpeningAnime from '../views/OpeningAnime.vue'
@@ -24,13 +23,7 @@ const router = createRouter({
       component: () => import('../views/globalChat.vue')
     },
     {
-      path: '/pokemons',
-      name: 'pokemons',
-      component: PokesView,
-      meta: { requiresAuth: true }
-    },
-    {
-      path: "/pokemon/:id",
+      path: "/Anime/:id/:animeName",
       name: "singleview",
       component: SingleView,
       props: true,

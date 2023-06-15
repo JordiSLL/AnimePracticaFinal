@@ -48,6 +48,9 @@ const animeRandom = axios.create({
       }
       //console.log('/anime', { params });
       return animeRandom.get('/anime?sfw', { params });
+    },
+    getAnimeById(id) {
+      return animeRandom.get(`/anime/${id}`);
     }
   }
     

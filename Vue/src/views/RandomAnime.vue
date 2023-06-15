@@ -4,7 +4,16 @@
     <h2>{{animeTitle}}</h2>
     <container class="container">
       <section class="infoAnime">
-         <img :src="imageSrc" alt="Imagen">
+         <router-link class="link" 
+                  :to="{
+                    name: 'singleview',
+                    params: {
+                      id: animeID,
+                      animeName: animePath
+                    }
+                  }">
+      <img :src="imageSrc" alt="Imagen">
+    </router-link>
     </section>
     <section class="infoApi">
       <div>
@@ -82,7 +91,9 @@ export default{
   data(){
     return{
       imageSrc: '',
-      animeTitle: 'Random Anime'
+      animeTitle: 'Random Anime',
+      animeID:'21',
+      animePath:'Random Anime'
     }
 },
 mounted(){
@@ -93,6 +104,9 @@ mounted(){
                 console.log(data)
                 this.imageSrc = data.data[0].images.jpg.large_image_url;
                 this.animeTitle = data.data[0].title;
+                this.animePath = this.animeTitle.replace(/ /g, "_");
+                this.animeID=data.data[0].mal_id
+                console.log(this.animeID)
                 console.log(data.data[0].images.jpg.large_image_url)
               }) 
 
@@ -114,6 +128,8 @@ methods:{
                 console.log(random)
                 this.imageSrc = data.data[random].images.jpg.large_image_url;
                 this.animeTitle = data.data[random].title;
+                this.animePath = this.animeTitle.replace(/ /g, "_");
+                this.animeID=data.data[random].mal_id
                 console.log(data.data[random].images.jpg.large_image_url)})
               }) 
   }
@@ -160,7 +176,7 @@ button:hover {
     inset 4px 4px 6px 0 rgba(0, 0, 0, .4);
 }
 img {
-  width: 200px;
+  width: 350px;
   height: auto;
   display: block;
   margin-bottom: 20px;

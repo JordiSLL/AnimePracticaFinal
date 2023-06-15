@@ -13,7 +13,6 @@ import { RouterLink, RouterView } from 'vue-router'
         <RouterLink to="/globalChat">Chat</RouterLink>
         <RouterLink to="/RandomAnime">RandomAnime</RouterLink>
         <RouterLink to="/OpeningAnime">OpeningAnime</RouterLink>
-        <RouterLink to="/pokemons">Pokemons</RouterLink>
       </nav>
     </div>
   </header>

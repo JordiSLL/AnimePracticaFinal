@@ -1,5 +1,7 @@
 
 <script setup>
+import { defineProps, onMounted, ref } from 'vue'
+import randomAnimeService from '@/services/randomAnimeService.js';
 
 const props = defineProps({
   id: {
@@ -8,75 +10,102 @@ const props = defineProps({
   }
 })
 
-
-import { defineProps, onMounted, ref } from 'vue'
-import pokeservice from '@/services/pokeservice.js';
-
-// const props = defineProps(['pokename'])
 console.log(props.id)
 
-
-const loaded = ref('loading...')
 const name = ref();
-const front = ref();
-const back = ref();
-const attack = ref();
-const defense = ref();
+const nameEng = ref();
+const animecover = ref();
+const status = ref();
+const episodes = ref();
+const favorites = ref();
+const genres = ref();
+const mal_URL = ref();
+const popularity = ref();
+const rank = ref();
+const score = ref([]);
+const synopsis = ref();
+const year = ref();
 
 onMounted(() => {
 
-  
-
-
-  pokeservice.getSinglePokemon(props.id)
+  randomAnimeService.getAnimeById(props.id)
               .then( info => info.data )
-              .then( poke => {
-                console.dir(poke);
-                name.value = poke.name
-                front.value = poke.sprites.front_default
-                back.value = poke.sprites.back_default
-                attack.value = poke.stats[1].base_stat
-                defense.value = poke.stats[2].base_stat
+              .then( anime => {
+                console.dir(anime);
+                name.value = anime.data.title;
+                nameEng.value =  anime.data.title_english; 
+                episodes.value = anime.data.episodes;
+                anime.data.genres.forEach(genre => {
+                  score.value.push(genre);
+                });
+                animecover.value = anime.data.images.jpg.large_image_url;
+                status.value = anime.data.status;
+                favorites.value = anime.data.favorites;
+                mal_URL.value = anime.data.url;
+                popularity.value = anime.data.popularity;
+                rank.value = anime.data.rank;
+                score.value =  anime.data.score;
+                synopsis.value =  anime.data.synopsis;
+                year.value = anime.data.year;
+
               })
 })
-
-
 
 </script>
 
 
 <template>
   <main>
-    <h1>{{ name }}</h1>
-    <img :src="front" alt="">
-    <img :src="back" alt="">
-    <div class="fight">
-      <span>Attack: {{ attack }}</span>|
-      <span>Defense: {{ defense }}</span>
-    </div>
+    <section class="titles">
+      <h1>{{ name }}</h1>
+      <h2 v-if="name !== nameEng">{{ nameEng }}</h2>
+    </section>
+    <container class="container">
+      <section class="left">
+          <a :href="mal_URL" target="_blank">
+            <img :src="animecover" alt="Imagen Anime">
+          </a>
+          
+      </section>
+      <section class="right">
+        <h2> ID Anime: {{ props.id }}</h2>
+        <h2>Estado: {{ status}}</h2>
+        <h2>Score: {{ score}}</h2>
+        <h2>Año: {{ year}}</h2>
+        <h2 v-if="episodes">Episodios: {{ episodes }}</h2>
+        <h2>Favoritos: {{ favorites}}</h2>
+        <h2>Popularidad: {{ popularity }}</h2>
+        <h2>Rank: {{ rank }}</h2>
+        
+      </section>
+</container>
+<p>{{ synopsis}}</p>
   </main>
 </template>
 
 <style scoped>
-.cards {
+.container{
   display: flex;
-  justify-items: flex-start;
   align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-.card{
-  display: inline-flex;
   justify-content: center;
-  align-items: center;
-  border: 2px solid yellow;
-  border-radius: 4px;
-  padding: 1rem 2rem;
-  width: 150px;
+  gap: 4rem;
 }
-.fight {
-  display: flex;
-  gap: 1rem;
+.titles{
+  text-align: center;
+  margin:1rem;
+}
+h1{
+  color:white;
+  font-size: 2rem;
+}
+img{
+  max-width: 350px;
+}
+.right>h2{
+  margin-top: 1rem;
+}
+p {
+  text-align: justify;
 }
 </style>
 
