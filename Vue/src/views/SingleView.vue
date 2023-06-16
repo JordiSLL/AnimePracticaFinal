@@ -69,13 +69,13 @@ onMounted(() => {
       </section>
       <section class="right">
         <h2> ID Anime: {{ props.id }}</h2>
-        <h2>Estado: {{ status}}</h2>
-        <h2>Score: {{ score}}</h2>
-        <h2>Año: {{ year}}</h2>
+        <h2 v-if="status">Estado: {{ status}}</h2>
+        <h2 v-if="score">Score: {{ score}}</h2>
+        <h2 v-if="year">Año: {{ year}}</h2>
         <h2 v-if="episodes">Episodios: {{ episodes }}</h2>
-        <h2>Favoritos: {{ favorites}}</h2>
-        <h2>Popularidad: {{ popularity }}</h2>
-        <h2>Rank: {{ rank }}</h2>
+        <h2 v-if="favorites">Favoritos: {{ favorites}}</h2>
+        <h2 v-if="popularity">Popularidad: {{ popularity }}</h2>
+        <h2 v-if="rank">Rank: {{ rank }}</h2>
         
       </section>
 </container>
