@@ -51,6 +51,10 @@ const animeRandom = axios.create({
     },
     getAnimeById(id) {
       return animeRandom.get(`/anime/${id}`);
+    },
+    getTopAnime(){
+      let random = Math.floor(Math.random() * 100);
+      return animeRandom.get(`/top/anime?page=${random}&type=tv`);
     }
   }
     

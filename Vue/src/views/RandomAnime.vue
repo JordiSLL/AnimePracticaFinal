@@ -227,19 +227,5 @@ input[type="submit"] {
 input[type="submit"]:hover {
   background-color: #45a049;
 }
-.submit-button {
-  padding: 10px 20px;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.submit-button:hover {
-  background-color: #45a049;
-}
 </style>
 
