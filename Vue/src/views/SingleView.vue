@@ -22,7 +22,7 @@ const genres = ref();
 const mal_URL = ref();
 const popularity = ref();
 const rank = ref();
-const score = ref([]);
+const score = ref();
 const synopsis = ref();
 const year = ref();
 
@@ -35,9 +35,10 @@ onMounted(() => {
                 name.value = anime.data.title;
                 nameEng.value =  anime.data.title_english; 
                 episodes.value = anime.data.episodes;
-                anime.data.genres.forEach(genre => {
-                  score.value.push(genre);
-                });
+                genres.value = "";
+                for (let i= 0; i < anime.data.genres.length; i++) {
+                  genres.value += ' ' + anime.data.genres[i].name;
+                }
                 animecover.value = anime.data.images.jpg.large_image_url;
                 status.value = anime.data.status;
                 favorites.value = anime.data.favorites;
@@ -47,7 +48,6 @@ onMounted(() => {
                 score.value =  anime.data.score;
                 synopsis.value =  anime.data.synopsis;
                 year.value = anime.data.year;
-
               })
 })
 
@@ -76,7 +76,7 @@ onMounted(() => {
         <h2 v-if="favorites">Favoritos: {{ favorites}}</h2>
         <h2 v-if="popularity">Popularidad: {{ popularity }}</h2>
         <h2 v-if="rank">Rank: {{ rank }}</h2>
-        
+        <h2>Generos: {{ genres }}</h2>
       </section>
 </container>
 <p>{{ synopsis}}</p>
