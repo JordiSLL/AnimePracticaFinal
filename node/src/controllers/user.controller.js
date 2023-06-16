@@ -98,12 +98,13 @@ exports.update = (req, res) => {
 
 // Retrieve all users
 exports.findAll = (req, res) => {
-  userModel.getAllUsers((err, result) => {
+  userModel.getAll((err, result) => {
     if (err) return res.status(500).send(err);
     let users = {};
     for (let id in result) {
-      let user = JSON.parse(result[id]);
+      let user = result[id];
       delete user.password;
+      user.id = user._id
       users[user.id] = user;
     }
     res.status(200).send(users);

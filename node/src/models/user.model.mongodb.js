@@ -1,5 +1,6 @@
 const mongoClient = require("../services/mongodb.service");
 const User = require("./user.model");
+var mongo = require('mongodb');
 
 
 class MongoDBUser extends User {
@@ -8,19 +9,28 @@ class MongoDBUser extends User {
     this.collection = mongoClient.db('api').collection('users');
   }
 
-  async create(user) {
-    const result = await this.collection.insertOne(user);
-    return result.insertedId.toString();
+  async create(user, cb) {
+    this.collection.insertOne(user, (err, result) => {
+      if (err) return cb(err);
+      cb(null, result.insertedId.toString());
+    });
   }
 
-  async get(id) {
-    const result = await this.collection.findOne({ _id: id });
-    return result;
+
+  async get(id,cb) {
+    this.collection.findOne({ _id: mongo.ObjectId(id) }).then((result) => {
+      cb(null, result);
+    }).catch((err) => {
+      cb(err);
+    }); 
   }
 
-  async getAll() {
-    const result = await this.collection.find().toArray();
-    return result;
+  async getAll(cb) {
+    this.collection.find().toArray().then((result) => {
+      cb(null, result);
+    }).catch((err) => {
+      cb(err);
+    });
   }
 
   async getByEmail(email,cb) {
