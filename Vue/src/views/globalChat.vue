@@ -71,7 +71,7 @@ export default {
 
 .my-message {
   text-align: right;
-  color: blue;
+  color: white;
 }
 
 .message-sender {
