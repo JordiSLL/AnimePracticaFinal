@@ -76,7 +76,7 @@ onMounted(() => {
         <h2 v-if="favorites">Favoritos: {{ favorites}}</h2>
         <h2 v-if="popularity">Popularidad: {{ popularity }}</h2>
         <h2 v-if="rank">Rank: {{ rank }}</h2>
-        <h2>Generos: {{ genres }}</h2>
+        <h2>Generos:{{ genres }}</h2>
       </section>
 </container>
 <p>{{ synopsis}}</p>
