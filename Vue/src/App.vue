@@ -57,6 +57,7 @@ nav a:first-of-type {
 }
 a {
     text-decoration: none;
+    font-size: x-large;
     color: purple;
     transition: 0.4s;
 }

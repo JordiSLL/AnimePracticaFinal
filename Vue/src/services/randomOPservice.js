@@ -26,7 +26,8 @@ const openingRandom = axios.create({
         let random = Math.floor(Math.random() * 25);
         nameAnime = data.data[random].title;
         nameAnime = convertToSlug(nameAnime);
+        sessionStorage.setItem("Mal_ID", data.data[random].mal_id);
         console.log(nameAnime);
-        return openingRandom.get(`/${nameAnime}?include=animethemes.animethemeentries.videos.audio`)
+        return openingRandom.get(`/${nameAnime}?include=animethemes.animethemeentries.videos.audio`);
       })
     }}
