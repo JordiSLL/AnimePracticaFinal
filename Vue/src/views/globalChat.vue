@@ -1,16 +1,18 @@
 <template>
   <div class="chat-container">
     <ul class="message-list">
-      <li v-for="message in messages" :key="message.id" :class="{'my-message': message.isMine}">
-        <span class="message-sender">{{ message.senderUserName }}:</span>
+      <li v-for="message in messages" :key="message.id" :class="[message.isMine ? 'my-message' : 'other-message']">
+        <span class="message-sender">{{ message.senderUserName }}: </span>
         <span class="message-content">{{ message.content }}</span>
       </li>
     </ul>
+  </div>
     <div class="input-container">
+      <label class="input-wrapper" data-text="">
       <input v-model="newMessage" type="text" placeholder="Escribe un mensaje..." class="input-field">
+      </label>
       <button @click="sendMessage" class="send-button">Enviar</button>
     </div>
-  </div>
 </template>
 <script>
 import io from 'socket.io-client';
@@ -57,32 +59,63 @@ export default {
 </script>
 <style scoped>
 .chat-container {
-  width: 400px;
+  width: 70%;
   margin: 0 auto;
-  border: 1px solid #ccc;
   border-radius: 4px;
   padding: 10px;
+  height: 400px;
+  overflow-y: auto;
+  margin-top: 1rem;
 }
 
-.message-list {
+
+.message-container {
+  flex: 1;
+  margin-bottom: 10px; 
+}
+.message-list{
   list-style-type: none;
-  padding: 0;
+  overflow-wrap: break-word;
+  padding: 0px;
 }
-
 .my-message {
   text-align: right;
-  color: white;
+  color: black;
+  font-size: large;
+  width: 70%;
+  padding: 10px;
+  margin: 5px;
+  margin-left: 30%;
+  border-radius: 10px 10px 0 10px;
+  background-color: lightgray;
 }
-
+.other-message{
+  font-size: large;
+  width: 70%;
+  padding: 10px;
+  margin: 5px;
+  margin-right: 30%;
+  background-color: gray;
+  color: black;
+  border-radius: 10px 10px 10px 0px;
+}
 .message-sender {
   font-weight: bold;
-  margin-right: 5px;
+  margin-left: 5px;
 }
 
 .input-container {
   display: flex;
   align-items: center;
   margin-top: 10px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  margin-bottom: 2rem;
 }
 
 .input-field {
@@ -93,6 +126,54 @@ export default {
 .send-button {
   margin-left: 10px;
   padding: 5px 10px;
+}
+.input-wrapper {
+  display: block;
+  width: 500px;
+  position: relative;
+}
+input {
+  color: #ddd;
+  border: none;
+  padding: 0;
+  outline: none;
+  width: auto;
+  min-width: 100%;
+  font-size: 1.5rem;
+  line-height: 3em;
+  font-family: system-ui;
+  border-bottom: 3px solid #333333;
+  background-color: transparent;
+}
+.input-wrapper::after {
+  content: attr(data-text);
+  font-size: 1.5rem;
+  line-height: 0;
+  height: 0;
+  max-width: 100%;
+  font-family: Roboto, Arial, sans-serif;
+  border-bottom: 3px solid #fff;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  overflow: hidden;
+  user-select: none;
+  color: transparent;
+}
+.send-button {
+  margin-left: 10px;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background-color: #333333;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.send-button:hover {
+  background-color: grey;
 }
 </style>
 
