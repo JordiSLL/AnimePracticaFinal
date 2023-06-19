@@ -18,12 +18,20 @@ class MongoDBUser extends User {
 
 
   async get(id,cb) {
-    this.collection.findOne({ _id: mongo.ObjectId(id) }).then((result) => {
+    this.collection.findOne({ _id: new mongo.ObjectId(id) }).then((result) => {
       cb(null, result);
     }).catch((err) => {
       cb(err);
     }); 
   }
+  /*async get(id, cb) {
+  try {
+    const result = await this.collection.findOne({ _id: new mongo.ObjectId(id) });
+    cb(null, result);
+  } catch (err) {
+    cb(err);
+  }
+}*/
 
   async getAll(cb) {
     this.collection.find().toArray().then((result) => {
@@ -55,9 +63,22 @@ class MongoDBUser extends User {
     return result.modifiedCount > 0;
   }
 
-  async delete(id) {
-    const result = await this.collection.deleteOne({ _id: id });
+ /* async delete(id, cb) {
+    this.collection.deleteOne({ _id: id }).then((result) => {
+      cb(null, result);
+    }).catch((err) =>{
+      cb(err);
+    });
     return result.deletedCount > 0;
+  }*/
+
+  delete(id, cb) {
+      this.collection.deleteOne({ _id: new mongo.ObjectId(id) }).then((result) =>{
+      cb(null, result);
+      return result.deletedCount > 0;
+    }).catch ((err) => {
+      cb(err);
+    });
   }
 }
 

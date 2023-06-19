@@ -117,18 +117,64 @@ exports.findOne = (req, res) => {
   userModel.get(userId, (err, result) => {
     if (err) return res.status(500).send(err);
     if (!result) return res.status(404).send("User not found");
-    res.sendStatus(200).send(result);
+    res.status(200).send(result);
   });
 };
-
+/*exports.findOne = (req, res) => {
+  const userId = req.params.id;
+   userModel.get(userId,(err,result) =>{
+    if (!result) return res.status(404).send("User not found");
+    let user = result[id];
+    delete user.password;
+    user.id = user._id
+    users[user.id] = user;
+    res.status(200).send(users);
+  }).catch ((err) =>{
+    res.status(500).send(err);
+  });
+}*/
+/*exports.findOne = (req, res) => {
+  const userId = req.params.id;
+  userModel.get(userId, (err, result) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    if (!result) {
+      return res.status(404).send("User not found");
+    }
+    let users = {};
+    let user = result[id];
+    delete user.password;
+    user.id = user._id;
+    user1[user.id] = user;
+    res.status(200).send(user1);
+  });
+}*/
 // Delete a user
-exports.delete = (req, res) => {
+/*exports.delete = (req, res) => {
   const userId = req.params.id;
   userModel.delete(userId, (err, result) => {
     if (err) return res.status(500).send(err);
     res.status(200).send({
       message: "User deleted successfully"
     });
+  });
+};*/
+
+
+exports.delete = (req, res) => {
+  const userId = req.params.id;
+  userModel.delete(userId, (err, result) => {
+    if (err) return res.status(500).send(err);
+    if (result.deletedCount > 0) {
+      res.status(200).send({
+        message: "User deleted successfully"
+      });
+    } else {
+      res.status(404).send({
+        message: "User not found"
+      });
+    }
   });
 };
 
