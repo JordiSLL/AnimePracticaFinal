@@ -59,6 +59,7 @@ router.beforeEach((to, from, next) => {
   } else {
     // Si la ruta no requiere autenticación o el token está presente,
     // permite la navegación al destino solicitado.
+    document.querySelector('header img').src= "/img/logo.svg";
     next();
   }
 });
