@@ -6,8 +6,14 @@ AnimeRandom es una aplicación que te permite encontrar  animes random en base a
 ## Caracteristicas
 
 ### AnimeRandom
+
+https://github.com/JordiSLL/AnimePracticaFinal/assets/100711726/12eb0df1-cb84-4ddb-99ef-392a74ff3b8d
+
 ### ChatGlobal
+
 ### Opening/Ending Guess
+
+https://github.com/JordiSLL/AnimePracticaFinal/assets/100711726/a7933c4d-6679-4b08-bd37-316ce0aae523
 
 **La aplicación hace peticiones a dos Apis diferentes:**
 * AnimeRandom: [Jikan.moe](https://jikan.moe/)
