@@ -116,13 +116,28 @@ exports.findAll = (req, res) => {
     let users = {};
     for (let id in result) {
       let user = result[id];
-      delete user.password;
+      //delete user.password;
       user.id = user._id
       users[user.id] = user;
     }
     res.status(200).send(users);
   });
 }
+/*exports.findAll = (req, res) => {
+  userModel.getAll((err, result) => {
+    if (err) return res.status(500).send(err);
+    let users = {};
+    for (let id in result) {
+      let user = result[id];
+      if (user.isAdmin !== true) {
+        delete user.password;
+      }
+      user.id = user._id
+      users[user.id] = user;
+    }
+    res.status(200).send(users);
+  });
+};*/
 
 // Retrieve a single user
 exports.findOne = (req, res) => {
