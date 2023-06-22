@@ -3,15 +3,21 @@ Practica Final de Arquitectura i tecnologia de sistemes web i multimèdia
 
 AnimeRandom es una aplicación que te permite encontrar  animes random en base al genero, puntuación, tipo o estado. Ademas la aplicación incluye un chat general y un "Adivina el Opening/Ending".
 
-## Caracteristicas
+## Functionalities
 
 ### AnimeRandom
+Descubre nuevos animes en base al type, score, rating, status o genres.
 
 https://github.com/JordiSLL/AnimePracticaFinal/assets/100711726/12eb0df1-cb84-4ddb-99ef-392a74ff3b8d
 
 ### ChatGlobal
+Interactua con otros usuarios en el chat global.
+
+![AnimeRandomChat](https://github.com/JordiSLL/AnimePracticaFinal/assets/100711726/9f346691-5025-4831-8afe-77807766f404)
+
 
 ### Opening/Ending Guess
+Adivina el Op/Ed de animes aleatorios.
 
 https://github.com/JordiSLL/AnimePracticaFinal/assets/100711726/a7933c4d-6679-4b08-bd37-316ce0aae523
 
