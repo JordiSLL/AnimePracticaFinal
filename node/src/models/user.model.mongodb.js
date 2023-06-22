@@ -58,9 +58,17 @@ class MongoDBUser extends User {
     return result && result._id.toString();
   }
 
-  async update(id, updates) {
+  /*async update(id, updates) {
     const result = await this.collection.updateOne({ _id: id }, { $set: updates });
     return result.modifiedCount > 0;
+  }*/
+
+  update(id, updates) {
+    return this.collection.updateOne({ _id: new mongo.ObjectId(id) }, { $set: updates })
+      .then(result => result.modifiedCount > 0)
+      .catch(err => {
+        throw err;
+      });
   }
 
  /* async delete(id, cb) {

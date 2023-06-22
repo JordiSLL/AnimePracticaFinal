@@ -87,13 +87,26 @@ exports.login = (req, res) => {
   
 
 // Edit an existing user
-exports.update = (req, res) => {
+/*exports.update = (req, res) => {
   const userId = req.params.id;
   const updates = req.body;
   userModel.update(userId, updates, (err, result) => {
     if (err) return res.status(500).send(err);
     res.status(200).send(result);
   });
+};*/
+
+exports.update = (req, res) => {
+  const userId = req.params.id;
+  const updates = req.body;
+
+  userModel.update(userId, updates)
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(err => {
+      res.status(500).send(err);
+    });
 };
 
 // Retrieve all users
