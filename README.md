@@ -1,7 +1,7 @@
 # AnimeRandom
 Practica Final de Arquitectura i tecnologia de sistemes web i multimèdia
 
-AnimeRandom es una aplicación que te permite encontrar  animes random en base al genero, puntuación, tipo o estado. Ademas la aplicación incluye un chat general y un "Adivina el Opening/Ending".
+AnimeRandom es una aplicación que te permite encontrar  animes aleatorios  en base al genero, puntuación, tipo o estado. Ademas la aplicación incluye un chat general y un "Adivina el Opening/Ending".
 
 ## Functionalities
 
