@@ -107,7 +107,7 @@ exports.update = (req, res) => {
     .catch(err => {
       res.status(500).send(err);
     });
-  console.log("Datos de usuario actualizados", user);
+  console.log("Datos de usuario actualizados", updates);
 };
 
 // Retrieve all users
